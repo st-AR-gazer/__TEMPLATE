@@ -14,7 +14,7 @@ def create_op_file():
     with zipfile.ZipFile(op_file_name, 'w', zipfile.ZIP_DEFLATED) as zipf:
         zip_directory('./src', zipf)
 
-        additional_files = ['info.toml', 'LICENCE', 'README.md']
+        additional_files = ['info.toml', 'LICENSE', 'README.md']
         for file in additional_files:
             if os.path.exists(file):
                 zipf.write(file)
