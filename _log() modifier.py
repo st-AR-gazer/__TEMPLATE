@@ -2,7 +2,7 @@ import os
 import re
 
 def modify_log_statements(directory):
-    log_pattern = re.compile(r'log\((.*), LogLevel::(\w+)(?:, \d+)?\);')
+    log_pattern = re.compile(r'(log\((.*), LogLevel::(\w+))(\s*, \d+)?\);')
     modifications = []
 
     for root, dirs, files in os.walk(directory):
@@ -24,9 +24,9 @@ def modify_log_statements(directory):
                     match = log_pattern.search(line)
                     if match:
                         file_modified = True
-                        log_content, log_level = match.groups()
-                        new_line = f'log({log_content}, LogLevel::{log_level}, {i + 1});\n'
-                        lines[i] = new_line
+                        log_statement_start, log_content, log_level, existing_number = match.groups()
+                        new_log_statement = f'{log_statement_start}, {i + 1});'
+                        lines[i] = line.replace(match.group(0), new_log_statement)
                         modified_lines.append(i + 1)
 
                 if file_modified:
