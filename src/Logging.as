@@ -35,10 +35,10 @@ void log(const string &in msg, LogLevel level = LogLevel::Info, int line = -1) {
                 print("\\$f00[ERROR] " + " \\$fff" + "\\$c00"+lineInfo+" \\$fff" + msg); 
                 break;
             case LogLevel::Test: 
-                print("\\$888[ERROR] " + " \\$fff" + "\\$c00"+lineInfo+" \\$fff" + msg); 
+                print("\\$aaa[Testing] " + " \\$fff" + "\\$c00"+lineInfo+" \\$fff" + msg); 
                 break;
             case LogLevel::_: 
-                print("\\$444[ERROR] " + " \\$fff" + "\\$c00"+lineInfo+" \\$fff" + msg); 
+                print("\\$333[Placeholder] " + " \\$fff" + "\\$c00"+lineInfo+" \\$fff" + msg); 
                 break;
         }
     }
