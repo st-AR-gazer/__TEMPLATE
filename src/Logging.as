@@ -10,7 +10,9 @@ enum LogLevel {
     Info,
     InfoG,
     Warn,
-    Error
+    Error,
+    Test,
+    _
 };
 
 [Setting category="General" name="Show debug logs"]
@@ -31,6 +33,12 @@ void log(const string &in msg, LogLevel level = LogLevel::Info, int line = -1) {
                 break;
             case LogLevel::Error: 
                 print("\\$f00[ERROR] " + " \\$fff" + "\\$c00"+lineInfo+" \\$fff" + msg); 
+                break;
+            case LogLevel::Test: 
+                print("\\$888[ERROR] " + " \\$fff" + "\\$c00"+lineInfo+" \\$fff" + msg); 
+                break;
+            case LogLevel::_: 
+                print("\\$444[ERROR] " + " \\$fff" + "\\$c00"+lineInfo+" \\$fff" + msg); 
                 break;
         }
     }
