@@ -18,8 +18,8 @@ jobs:
         FILES=("src/Logging.as" "_comple.py" "_log() modifier.py")
 
         REPOS=$(curl -H "Authorization: token ${{ secrets.TEMPLATE_REPO_PAT }}" \
-                     "https://api.github.com/user/repos?per_page=100" \
-                     | jq -r '.[].full_name')
+                    "https://api.github.com/user/repos?per_page=100" \
+                    | jq -r '.[].full_name')
 
         for REPO in ${REPOS}; do
           git clone https://github.com/${REPO}.git
