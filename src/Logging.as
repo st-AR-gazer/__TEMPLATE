@@ -1,9 +1,9 @@
 void NotifyWarn(const string &in msg) {
-    UI::ShowNotification("Warning message", msg, vec4(1, .5, .1, .5), 6000);
+    UI::ShowNotification("Altered Random Map Picker", msg, vec4(1, .5, .1, .5), 6000);
 }
 
 void NotifyInfo(const string &in msg) {
-    UI::ShowNotification("Info message", msg, vec4(.3, 1, .1, .5), 6000);
+    UI::ShowNotification("Altered Random Map Picker", msg, vec4(.2, .8, .5, .3), 6000);
 }
 
 enum LogLevel {
