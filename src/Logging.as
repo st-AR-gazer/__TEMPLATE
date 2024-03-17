@@ -16,25 +16,28 @@ enum LogLevel {
     _
 };
 
-[Setting category="~DEV" name="Show Debug logs"]
+[Setting category="~DEV" name="Show debug logs"]
+bool doDevLogging = false;
+
+[Setting category="~DEV" name="Show Debug logs (D)"]
 bool showDebugLogs = true;
 
-[Setting category="~DEV" name="Show Info logs"]
+[Setting category="~DEV" name="Show Info logs (INFO)"]
 bool showInfoLogs = true;
 
-[Setting category="~DEV" name="Show InfoG logs"]
+[Setting category="~DEV" name="Show InfoG logs (INFO-G)"]
 bool showInfoGLogs = true;
 
-[Setting category="~DEV" name="Show Warn logs"]
+[Setting category="~DEV" name="Show Warn logs (WARN)"]
 bool showWarnLogs = true;
 
-[Setting category="~DEV" name="Show Error logs"]
+[Setting category="~DEV" name="Show Error logs (ERROR)"]
 bool showErrorLogs = true;
 
-[Setting category="~DEV" name="Show Test logs"]
+[Setting category="~DEV" name="Show Test logs (TEST)"]
 bool showTestLogs = true;
 
-[Setting category="~DEV" name="Show Placeholder logs"]
+[Setting category="~DEV" name="Show Placeholder logs (PLACEHOLDER)"]
 bool showPlaceholderLogs = true;
 
 
@@ -51,6 +54,8 @@ void log(const string &in msg, LogLevel level = LogLevel::Info, int line = -1) {
         case LogLevel::D:     doLog = showDebugLogs;       break;
         case LogLevel::_:     doLog = showPlaceholderLogs; break;
     }
+
+    if (!doDevLogging) return;
 
     if (doLog) {
         switch(level) {
