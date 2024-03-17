@@ -19,8 +19,6 @@ enum LogLevel {
 [Setting category="~DEV" name="Show debug logs"]
 bool doDevLogging = false;
 
-[Setting category="~DEV" name="Show Debug logs (D)"]
-bool showDebugLogs = true;
 
 [Setting category="~DEV" name="Show Info logs (INFO)"]
 bool showInfoLogs = true;
@@ -37,6 +35,9 @@ bool showErrorLogs = true;
 [Setting category="~DEV" name="Show Test logs (TEST)"]
 bool showTestLogs = true;
 
+[Setting category="~DEV" name="Show Debug logs (D)"]
+bool showDLogs = true;
+
 [Setting category="~DEV" name="Show Placeholder logs (PLACEHOLDER)"]
 bool showPlaceholderLogs = true;
 
@@ -51,7 +52,7 @@ void log(const string &in msg, LogLevel level = LogLevel::Info, int line = -1) {
         case LogLevel::Warn:  doLog = showWarnLogs;        break;
         case LogLevel::Error: doLog = showErrorLogs;       break;
         case LogLevel::Test:  doLog = showTestLogs;        break;
-        case LogLevel::D:     doLog = showDebugLogs;       break;
+        case LogLevel::D:     doLog = showDLogs;           break;
         case LogLevel::_:     doLog = showPlaceholderLogs; break;
     }
 
