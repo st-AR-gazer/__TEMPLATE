@@ -26,6 +26,7 @@ def create_op_file():
                 zipf.write(file, sanitized_file)
 
     print(f"Created {op_file_name} successfully.")
+    print(f"IMPORTANT: Enable showDefaultLogs, in src/Condictions/Logging.as so the logs are uniform")
 
 if __name__ == "__main__":
     create_op_file()
