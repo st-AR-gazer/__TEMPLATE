@@ -50,7 +50,7 @@ def main():
             print(f"  - {file_path}: Lines {', '.join(map(str, lines))}")
     else:
         print("No files were modified.")
-    input("Press Enter to exit...")
 
 if __name__ == "__main__":
     main()
+ 
