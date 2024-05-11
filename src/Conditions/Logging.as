@@ -45,7 +45,7 @@ bool S_showDLogs = true;
 bool S_showPlaceholderLogs = true;
 
 
-[Setting category="~DEV" name="Show function name in logs"]
+[Setting category="z~DEV" name="Show function name in logs"]
 bool S_showFunctionNameInLogs = true;
 
 
@@ -62,8 +62,19 @@ void log(const string &in msg, LogLevel level = LogLevel::Info, int line = -1, s
     }
     lineInfo += extraSpaces;
 
-    bool doLog = false;
+    const int maxFunctionNameLength = 15;
+    if (functionName.Length > maxFunctionNameLength) {
+        functionName = functionName.SubStr(0, maxFunctionNameLength);
+    }
+    int functionNameLength = functionName.Length;
+    if (functionNameLength < maxFunctionNameLength) {
+        int numSpacesToAdd = maxFunctionNameLength - functionNameLength;
+        for (int i = 0; i < numSpacesToAdd; i++) {
+            functionName += " ";
+        }
+    }
 
+    bool doLog = false;
     switch(level) {
         case LogLevel::Info:  doLog = S_showInfoLogs;        break;
         case LogLevel::InfoG: doLog = S_showInfoGLogs;       break;
@@ -79,13 +90,13 @@ void log(const string &in msg, LogLevel level = LogLevel::Info, int line = -1, s
 
     if (doLog) {
         switch(level) {
-            case LogLevel::Info:  if(!S_showDefaultLogs) { print("\\$0ff[INFO]  " +       "\\$z" + "\\$0cc" + lineInfo + " : " + functionName + "\\$z" + msg); } else { trace(msg); } break;
-            case LogLevel::InfoG: if(!S_showDefaultLogs) { print("\\$0f0[INFO-G]" +       "\\$z" + "\\$0c0" + lineInfo + " : " + functionName + "\\$z" + msg); } else { trace(msg); } break;
-            case LogLevel::Warn:  if(!S_showDefaultLogs) { print("\\$ff0[WARN]  " +       "\\$z" + "\\$cc0" + lineInfo + " : " + functionName + "\\$z" + msg); } else { warn(msg);  } break;
-            case LogLevel::Error: if(!S_showDefaultLogs) { print("\\$f00[ERROR] " +       "\\$z" + "\\$c00" + lineInfo + " : " + functionName + "\\$z" + msg); } else { error(msg); } break;
-            case LogLevel::Test:  if(!S_showDefaultLogs) { print("\\$aaa[TEST]  " +       "\\$z" + "\\$aaa" + lineInfo + " : " + functionName + "\\$z" + msg); } else { trace(msg); } break;
-            case LogLevel::Dark:  if(!S_showDefaultLogs) { print("\\$777[Dark]  " +       "\\$z" + "\\$777" + lineInfo + " : " + functionName + "\\$z" + msg); } else { trace(msg); } break;
-            case LogLevel::_:     if(!S_showDefaultLogs) { print("\\$333[PLACEHOLDER] " + "\\$z" + "\\$333" + lineInfo + " : " + functionName + "\\$z" + msg); } else { trace(msg); } break;
+            case LogLevel::Info:  if(!S_showDefaultLogs) { print("\\$0ff[INFO]  " +       "\\$z" + "\\$0cc" + lineInfo + " : " + functionName + " : \\$z" + msg); } else { trace(msg); } break;
+            case LogLevel::InfoG: if(!S_showDefaultLogs) { print("\\$0f0[INFO-G]" +       "\\$z" + "\\$0c0" + lineInfo + " : " + functionName + " : \\$z" + msg); } else { trace(msg); } break;
+            case LogLevel::Warn:  if(!S_showDefaultLogs) { print("\\$ff0[WARN]  " +       "\\$z" + "\\$cc0" + lineInfo + " : " + functionName + " : \\$z" + msg); } else { warn(msg);  } break;
+            case LogLevel::Error: if(!S_showDefaultLogs) { print("\\$f00[ERROR] " +       "\\$z" + "\\$c00" + lineInfo + " : " + functionName + " : \\$z" + msg); } else { error(msg); } break;
+            case LogLevel::Test:  if(!S_showDefaultLogs) { print("\\$aaa[TEST]  " +       "\\$z" + "\\$aaa" + lineInfo + " : " + functionName + " : \\$z" + msg); } else { trace(msg); } break;
+            case LogLevel::Dark:  if(!S_showDefaultLogs) { print("\\$777[Dark]  " +       "\\$z" + "\\$777" + lineInfo + " : " + functionName + " : \\$z" + msg); } else { trace(msg); } break;
+            case LogLevel::_:     if(!S_showDefaultLogs) { print("\\$333[PLACEHOLDER] " + "\\$z" + "\\$333" + lineInfo + " : " + functionName + " : \\$z" + msg); } else { trace(msg); } break;
         }
     }
 }
