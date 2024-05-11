@@ -48,6 +48,9 @@ bool S_showPlaceholderLogs = true;
 [Setting category="z~DEV" name="Show function name in logs"]
 bool S_showFunctionNameInLogs = true;
 
+[Setting category="z~DEV" name="Set max function name length in logs" min="0" max="50"]
+int S_maxFunctionNameLength = 15;
+
 
 void log(const string &in msg, LogLevel level = LogLevel::Info, int line = -1, string functionName = "") {
     string lineInfo = line >= 0 ? " " + tostring(line) : "";
@@ -62,13 +65,12 @@ void log(const string &in msg, LogLevel level = LogLevel::Info, int line = -1, s
     }
     lineInfo += extraSpaces;
 
-    const int maxFunctionNameLength = 15;
-    if (functionName.Length > maxFunctionNameLength) {
-        functionName = functionName.SubStr(0, maxFunctionNameLength);
+    if (functionName.Length > S_maxFunctionNameLength) {
+        functionName = functionName.SubStr(0, S_maxFunctionNameLength);
     }
     int functionNameLength = functionName.Length;
-    if (functionNameLength < maxFunctionNameLength) {
-        int numSpacesToAdd = maxFunctionNameLength - functionNameLength;
+    if (functionNameLength < S_maxFunctionNameLength) {
+        int numSpacesToAdd = S_maxFunctionNameLength - functionNameLength;
         for (int i = 0; i < numSpacesToAdd; i++) {
             functionName += " ";
         }
