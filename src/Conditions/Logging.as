@@ -52,7 +52,7 @@ bool S_showFunctionNameInLogs = true;
 int S_maxFunctionNameLength = 15;
 
 
-void log(const string &in msg, LogLevel level = LogLevel::Info, int line = -1, string functionName = "") {
+void log(const string &in msg, LogLevel level = LogLevel::Info, int line = -1, string _functionName = "") {
     string lineInfo = line >= 0 ? " " + tostring(line) : "";
     int lineLength = lineInfo.Length - 1;
     string extraSpaces = "";
@@ -65,14 +65,14 @@ void log(const string &in msg, LogLevel level = LogLevel::Info, int line = -1, s
     }
     lineInfo += extraSpaces;
 
-    if (functionName.Length > S_maxFunctionNameLength) {
-        functionName = functionName.SubStr(0, S_maxFunctionNameLength);
+    if (_functionName.Length > S_maxFunctionNameLength) {
+        _functionName = _functionName.SubStr(0, S_maxFunctionNameLength);
     }
-    int functionNameLength = functionName.Length;
+    int functionNameLength = _functionName.Length;
     if (functionNameLength < S_maxFunctionNameLength) {
         int numSpacesToAdd = S_maxFunctionNameLength - functionNameLength;
         for (int i = 0; i < numSpacesToAdd; i++) {
-            functionName += " ";
+            _functionName += " ";
         }
     }
 
@@ -88,17 +88,17 @@ void log(const string &in msg, LogLevel level = LogLevel::Info, int line = -1, s
     }
 
     if (!S_showDebugLogs) return;
-    if (!S_showFunctionNameInLogs) {functionName = "";}
+    if (!S_showFunctionNameInLogs) {_functionName = "";}
 
     if (doLog) {
         switch(level) {
-            case LogLevel::Info:  if(!S_showDefaultLogs) { print("\\$0ff[INFO]  " +       "\\$z" + "\\$0cc" + lineInfo + " : " + functionName + " : \\$z" + msg); } else { trace(msg); } break;
-            case LogLevel::InfoG: if(!S_showDefaultLogs) { print("\\$0f0[INFO-G]" +       "\\$z" + "\\$0c0" + lineInfo + " : " + functionName + " : \\$z" + msg); } else { trace(msg); } break;
-            case LogLevel::Warn:  if(!S_showDefaultLogs) { print("\\$ff0[WARN]  " +       "\\$z" + "\\$cc0" + lineInfo + " : " + functionName + " : \\$z" + msg); } else { warn(msg);  } break;
-            case LogLevel::Error: if(!S_showDefaultLogs) { print("\\$f00[ERROR] " +       "\\$z" + "\\$c00" + lineInfo + " : " + functionName + " : \\$z" + msg); } else { error(msg); } break;
-            case LogLevel::Test:  if(!S_showDefaultLogs) { print("\\$aaa[TEST]  " +       "\\$z" + "\\$aaa" + lineInfo + " : " + functionName + " : \\$z" + msg); } else { trace(msg); } break;
-            case LogLevel::Dark:  if(!S_showDefaultLogs) { print("\\$777[Dark]  " +       "\\$z" + "\\$777" + lineInfo + " : " + functionName + " : \\$z" + msg); } else { trace(msg); } break;
-            case LogLevel::_:     if(!S_showDefaultLogs) { print("\\$333[PLACEHOLDER] " + "\\$z" + "\\$333" + lineInfo + " : " + functionName + " : \\$z" + msg); } else { trace(msg); } break;
+            case LogLevel::Info:  if(!S_showDefaultLogs) { print("\\$0ff[INFO]  " +       "\\$z" + "\\$0cc" + lineInfo + " : " + _functionName + " : \\$z" + msg); } else { trace(msg); } break;
+            case LogLevel::InfoG: if(!S_showDefaultLogs) { print("\\$0f0[INFO-G]" +       "\\$z" + "\\$0c0" + lineInfo + " : " + _functionName + " : \\$z" + msg); } else { trace(msg); } break;
+            case LogLevel::Warn:  if(!S_showDefaultLogs) { print("\\$ff0[WARN]  " +       "\\$z" + "\\$cc0" + lineInfo + " : " + _functionName + " : \\$z" + msg); } else { warn(msg);  } break;
+            case LogLevel::Error: if(!S_showDefaultLogs) { print("\\$f00[ERROR] " +       "\\$z" + "\\$c00" + lineInfo + " : " + _functionName + " : \\$z" + msg); } else { error(msg); } break;
+            case LogLevel::Test:  if(!S_showDefaultLogs) { print("\\$aaa[TEST]  " +       "\\$z" + "\\$aaa" + lineInfo + " : " + _functionName + " : \\$z" + msg); } else { trace(msg); } break;
+            case LogLevel::Dark:  if(!S_showDefaultLogs) { print("\\$777[Dark]  " +       "\\$z" + "\\$777" + lineInfo + " : " + _functionName + " : \\$z" + msg); } else { trace(msg); } break;
+            case LogLevel::_:     if(!S_showDefaultLogs) { print("\\$333[PLACEHOLDER] " + "\\$z" + "\\$333" + lineInfo + " : " + _functionName + " : \\$z" + msg); } else { trace(msg); } break;
         }
     }
 }
