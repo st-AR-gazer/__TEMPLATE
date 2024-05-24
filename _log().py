@@ -84,7 +84,7 @@ def modify_log_statements(file_path, verbose):
                     if verbose:
                         print(f"Updated log call in {file_path}: {new_log}")
                 except ValueError as e:
-                    if 'LogInfo.as' or 'Logging.as' not in file_path:
+                    if 'Logging.as' not in file_path:
                         print(f"\033[31mError in {file_path} on line {index+1}: {str(e)}\033[0m")
             file.write(line)
 
