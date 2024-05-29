@@ -17,12 +17,25 @@ jobs:
       - name: Checkout Source Repository
         uses: actions/checkout@v2
 
+      - name: Get Latest Commit Message
+        id: commit
+        run: echo "::set-output name=message::$(git log -1 --pretty=%B)"
+
+      - name: Check for -halt
+        id: check_halt
+        run: |
+          if [[ "${{ steps.commit.outputs.message }}" == -halt* ]]; then
+            echo "Commit message starts with -halt, stopping workflow."
+            exit 0
+          fi
+
       - name: Setup Git
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
 
       - name: Sync Files to Target Repositories
+        if: steps.check_halt.outcome == 'success'
         env:
           GH_PAT: ${{ secrets.GH_PAT_repo }}
         run: |
@@ -44,10 +57,11 @@ jobs:
           for REPO in "${REPOS[@]}"; do
             git clone --depth 1 https://$GH_PAT@github.com/$REPO.git target-repo
             
+            # Sync other files
             rsync -av --progress src/Conditions/ARsSpecialUtils.as target-repo/src/Conditions/ARsSpecialUtils.as
             rsync -av --progress src/Conditions/Colors.as target-repo/src/Conditions/Colors.as
 
-            # Sync Logging.as with special handling
+            # Process Logging.as file
             if [ -f target-repo/src/Conditions/Logging.as ]; then
               cp target-repo/src/Conditions/Logging.as target-repo/src/Conditions/Logging.old.as
               head -n 7 target-repo/src/Conditions/Logging.old.as > target-repo/src/Conditions/Logging.as
@@ -56,6 +70,7 @@ jobs:
               cp src/Conditions/Logging.as target-repo/src/Conditions/Logging.as
             fi
 
+            # Sync remaining files
             rsync -av --progress _log.py target-repo/_log.py
             rsync -av --progress _build.py target-repo/_build.py
 
