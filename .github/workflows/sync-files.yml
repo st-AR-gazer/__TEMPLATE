@@ -6,7 +6,7 @@ on:
       - 'src/Conditions/ARsSpecialUtils.as'
       - 'src/Conditions/Colors.as'
       - 'src/Conditions/Logging.as'
-      - '_log.py'
+      - '_log().py'
       - '_build.py'
 
 jobs:
