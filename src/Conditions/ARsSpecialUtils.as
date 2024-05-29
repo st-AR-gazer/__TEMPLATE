@@ -71,7 +71,7 @@ namespace _Json {
         int depth = 0;
         bool inString = false;
 
-        for (uint i = 0; i < jsonStr.Length; ++i) {
+        for (int i = 0; i < jsonStr.Length; ++i) {
             string currentChar = jsonStr.SubStr(i, 1);
 
             if (currentChar == "\"") inString = !inString;
