@@ -19,12 +19,12 @@ jobs:
 
       - name: Get Latest Commit Message
         id: commit
-        run: echo "::set-output name=message::$(git log -1 --pretty=%B)"
+        run: echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
 
       - name: Check for -halt
         id: check_halt
         run: |
-          if [[ "${{ steps.commit.outputs.message }}" == -halt* ]]; then
+          if [[ "${{ env.message }}" == -halt* ]]; then
             echo "Commit message starts with -halt, stopping workflow."
             exit 0
           fi
@@ -78,7 +78,7 @@ jobs:
             cd target-repo
             git add .
             git commit -m "Sync files from source repository"
-            git push origin main
+            git push https://$GH_PAT@github.com/$REPO.git main
             cd ..
             rm -rf target-repo
           done
