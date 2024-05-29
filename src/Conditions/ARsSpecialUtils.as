@@ -62,7 +62,7 @@ namespace _IO {
             log("Folder does not exist: " + path, LogLevel::Info, 62, "OpenFolder");
         }
     }
-} 
+}
 
 namespace _Json {
     string PrettyPrint(const Json::Value &in value) {
