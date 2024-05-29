@@ -15,7 +15,9 @@ jobs:
 
     steps:
       - name: Checkout Source Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
 
       - name: Get Latest Commit Message
         id: commit
@@ -40,7 +42,6 @@ jobs:
           GH_PAT: ${{ secrets.GH_PAT_repo }}
         run: |
           REPOS=(
-            "st-AR-gazer/___TESTING"
             "st-AR-gazer/_Altered-Nadeo_-_Random_Map_Picker"
             "st-AR-gazer/_CRP"
             "st-AR-gazer/_Auto-Enable-Specific-Ghost"
@@ -76,6 +77,8 @@ jobs:
             rsync -av --progress _build.py target-repo/_build.py
 
             cd target-repo
+            git config --local user.name "github-actions"
+            git config --local user.email "github-actions@github.com"
             git add .
             git commit -m "Sync files from source repository"
             git push https://$GH_PAT@github.com/$REPO.git main
