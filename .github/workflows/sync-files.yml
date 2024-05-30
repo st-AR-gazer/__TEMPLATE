@@ -80,8 +80,8 @@ jobs:
             fi
 
             if [ -f target-repo/_build.py ]; then
-              head -n 7 target-repo/_build.py > target-repo/_build.tmp.py
-              tail -n +8 _build.py >> target-repo/_build.tmp.py
+              grep -v '^build_name_overwrite = "' target-repo/_build.py > target-repo/_build.tmp.py
+              grep -v '^build_name_overwrite = "' _build.py >> target-repo/_build.tmp.py
               mv target-repo/_build.tmp.py target-repo/_build.py
             else
               cp _build.py target-repo/_build.py
