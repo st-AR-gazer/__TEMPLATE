@@ -72,7 +72,7 @@ jobs:
               cp src/Conditions/Logging.as target-repo/src/Conditions/Logging.as
             fi
 
-            rsync -av --progress _log.py target-repo/_log.py
+            rsync -av --progress _log().py target-repo/_log().py
             rsync -av --progress _build.py target-repo/_build.py
 
             cd target-repo
