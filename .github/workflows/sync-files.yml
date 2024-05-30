@@ -42,6 +42,7 @@ jobs:
           GH_PAT: ${{ secrets.GH_PAT_repo }}
         run: |
           REPOS=(
+            "st-AR-gazer/___TESTING"
             "st-AR-gazer/_Altered-Nadeo_-_Random_Map_Picker"
             "st-AR-gazer/_CRP"
             "st-AR-gazer/_Auto-Enable-Specific-Ghost"
@@ -58,8 +59,7 @@ jobs:
           )
           for REPO in "${REPOS[@]}"; do
             git clone --depth 1 https://$GH_PAT@github.com/$REPO.git target-repo
-            
-            # Sync other files
+
             rsync -av --progress src/Conditions/ARsSpecialUtils.as target-repo/src/Conditions/ARsSpecialUtils.as
             rsync -av --progress src/Conditions/Colors.as target-repo/src/Conditions/Colors.as
 
