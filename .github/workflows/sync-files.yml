@@ -63,7 +63,6 @@ jobs:
             rsync -av --progress src/Conditions/ARsSpecialUtils.as target-repo/src/Conditions/ARsSpecialUtils.as
             rsync -av --progress src/Conditions/Colors.as target-repo/src/Conditions/Colors.as
 
-            # Process Logging.as file
             if [ -f target-repo/src/Conditions/Logging.as ]; then
               cp target-repo/src/Conditions/Logging.as target-repo/src/Conditions/Logging.old.as
               head -n 7 target-repo/src/Conditions/Logging.old.as > target-repo/src/Conditions/Logging.as
@@ -72,7 +71,6 @@ jobs:
               cp src/Conditions/Logging.as target-repo/src/Conditions/Logging.as
             fi
 
-            # Sync remaining files
             rsync -av --progress _log.py target-repo/_log.py
             rsync -av --progress _build.py target-repo/_build.py
 
