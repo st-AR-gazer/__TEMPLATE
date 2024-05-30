@@ -57,8 +57,6 @@ jobs:
             "st-AR-gazer/_CSmScriptPlayer-Viewer"
           )
           for REPO in "${REPOS[@]}"; do
-            export GH_PAT=${{ secrets.GH_PAT_repo }}
-
             git clone --depth 1 https://$GH_PAT@github.com/$REPO target-repo
 
             rsync -av --progress src/Conditions/ARsSpecialUtils.as target-repo/src/Conditions/ARsSpecialUtils.as
@@ -72,15 +70,24 @@ jobs:
               cp src/Conditions/Logging.as target-repo/src/Conditions/Logging.as
             fi
 
-            rsync -av --progress _log().py target-repo/_log().py
-            rsync -av --progress _build.py target-repo/_build.py
+            if [ -f "_log().py" ]; then
+              rsync -av --progress "_log().py" target-repo/"_log().py"
+            else
+              echo "_log().py not found, skipping"
+            fi
+
+            if [ -f _build.py ]; then
+              rsync -av --progress _build.py target-repo/_build.py
+            else
+              echo "_build.py not found, skipping"
+            fi
 
             cd target-repo
             git config --local user.name "github-actions"
             git config --local user.email "github-actions@github.com"
             git add .
             git commit -m "Sync files from source repository"
-            git push https://$GH_PAT@github.com/$REPO.git main
+            git push https://$GH_PAT@github.com/$REPO main
             cd ..
             rm -rf target-repo
           done
