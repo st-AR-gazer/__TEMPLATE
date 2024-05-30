@@ -42,7 +42,7 @@ jobs:
           GH_PAT: ${{ secrets.GH_PAT_repo }}
         run: |
           REPOS=(
-            "st-AR-gazer/_Altered-Nadeo_-_Random_Map_Picker"
+            "st-AR-gazer/_Altered-Nadeo_-_Random-Map-Picker"
             "st-AR-gazer/_CRP"
             "st-AR-gazer/_Auto-Enable-Specific-Ghost"
             "st-AR-gazer/_Reactor-Duration"
