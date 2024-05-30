@@ -46,8 +46,8 @@ jobs:
             "st-AR-gazer/_CRP"
             "st-AR-gazer/_Auto-Enable-Specific-Ghost"
             "st-AR-gazer/_Reactor-Duration"
-            "st-AR-gazer/_DragonYeet-GameData-Extration-Plugin"
-            "st-AR-gazer/_Highlight-Map-Borders"
+            "st-AR-gazer/_DragonYeet-GameData-Extration-Plugion"
+            "st-AR-gazer/_Hightlight-Map-Borders"
             "st-AR-gazer/_Colorizer"
             "st-AR-gazer/_Blind"
             "st-AR-gazer/_RGB-Skids"
@@ -59,13 +59,15 @@ jobs:
           for REPO in "${REPOS[@]}"; do
             git clone --depth 1 https://$GH_PAT@github.com/$REPO target-repo
 
+            mkdir -p target-repo/src/Conditions
+
             rsync -av --progress src/Conditions/ARsSpecialUtils.as target-repo/src/Conditions/ARsSpecialUtils.as
             rsync -av --progress src/Conditions/Colors.as target-repo/src/Conditions/Colors.as
 
             if [ -f target-repo/src/Conditions/Logging.as ]; then
-              cp target-repo/src/Conditions/Logging.as target-repo/src/Conditions/Logging.old.as
-              head -n 7 target-repo/src/Conditions/Logging.old.as > target-repo/src/Conditions/Logging.as
-              tail -n +8 src/Conditions/Logging.as >> target-repo/src/Conditions/Logging.as
+              head -n 7 target-repo/src/Conditions/Logging.as > target-repo/src/Conditions/Logging.tmp.as
+              tail -n +8 src/Conditions/Logging.as >> target-repo/src/Conditions/Logging.tmp.as
+              mv target-repo/src/Conditions/Logging.tmp.as target-repo/src/Conditions/Logging.as
             else
               cp src/Conditions/Logging.as target-repo/src/Conditions/Logging.as
             fi
