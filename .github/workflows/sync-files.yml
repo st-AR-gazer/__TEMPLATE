@@ -59,7 +59,7 @@ jobs:
           for REPO in "${REPOS[@]}"; do
             export GH_PAT=${{ secrets.GH_PAT_repo }}
 
-            git clone --depth 1 https://$GH_PAT@github.com/$REPO.git target-repo
+            git clone --depth 1 https://$GH_PAT@github.com/$REPO target-repo
 
             rsync -av --progress src/Conditions/ARsSpecialUtils.as target-repo/src/Conditions/ARsSpecialUtils.as
             rsync -av --progress src/Conditions/Colors.as target-repo/src/Conditions/Colors.as
