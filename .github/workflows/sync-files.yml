@@ -36,6 +36,9 @@ jobs:
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
 
+      - name: Debug Environment Variables
+        run: env
+
       - name: Sync Files to Target Repositories
         if: steps.check_halt.outcome == 'success'
         env:
@@ -71,7 +74,7 @@ jobs:
               cp src/Conditions/Logging.as target-repo/src/Conditions/Logging.as
             fi
 
-            rsync -av --progress _log.py target-repo/_log.py
+            rsync -av --progress _log().py target-repo/_log().py
             rsync -av --progress _build.py target-repo/_build.py
 
             cd target-repo
