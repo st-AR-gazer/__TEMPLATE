@@ -90,15 +90,15 @@ jobs:
             git add .
             git commit -m "Sync files from source repository"
 
-            if git rev-parse --verify origin/main; then
-              git push https://$GH_PAT@github.com/$REPO main
+            if git rev-parse --verify origin/main >/dev/null 2>&1; then
+              git push https://$GH_PAT@github.com/$REPO main || true
             else
-              git push https://$GH_PAT@github.com/$REPO master
+              git push https://$GH_PAT@github.com/$REPO master || true
             fi
-            
+
             cd ..
             rm -rf target-repo
           done
-      
+
 # Repos not included in auto-sync:
 # "st-AR-gazer/_Patch-Warner" # it has a different Logging.as structure...
