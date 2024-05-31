@@ -79,12 +79,7 @@ jobs:
               echo "_log().py not found, skipping"
             fi
 
-            if [ -f target-repo/_build.py ]; then
-              head -n 1 target-repo/_build.py > target-repo/_build.tmp.py
-              tail -n +2 _build.py >> target-repo/_build.tmp.py
-              mv target-repo/_build.tmp.py target-repo/_build.py
-            else
-              cp _build.py target-repo/_build.py
+            cp _build.py target-repo/_build.py
             fi
 
             cd target-repo
