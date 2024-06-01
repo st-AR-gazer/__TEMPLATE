@@ -3,7 +3,7 @@ name: Sync Files
 on:
   push:
     paths:
-      - 'src/Conditions/ARsSpecialUtils.as'
+      - 'src/Conditions/arUtils.as'
       - 'src/Conditions/Colors.as'
       - 'src/Conditions/Logging.as'
       - '_log().py'
@@ -62,7 +62,7 @@ jobs:
 
             mkdir -p target-repo/src/Conditions
 
-            rsync -av --progress src/Conditions/ARsSpecialUtils.as target-repo/src/Conditions/ARsSpecialUtils.as
+            rsync -av --progress src/Conditions/arUtils.as target-repo/src/Conditions/arUtils.as
             rsync -av --progress src/Conditions/Colors.as target-repo/src/Conditions/Colors.as
 
             if [ -f target-repo/src/Conditions/Logging.as ]; then
