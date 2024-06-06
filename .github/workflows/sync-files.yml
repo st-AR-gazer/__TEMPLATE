@@ -67,8 +67,8 @@ jobs:
             rsync -av --progress src/Conditions/Colors.as target-repo/src/Conditions/Colors.as
 
             if [ -f target-repo/src/Conditions/Logging.as ]; then
-              head -n 7 target-repo/src/Conditions/Logging.as > target-repo/src/Conditions/Logging.tmp.as
-              tail -n +8 src/Conditions/Logging.as >> target-repo/src/Conditions/Logging.tmp.as
+              head -n 11 target-repo/src/Conditions/Logging.as > target-repo/src/Conditions/Logging.tmp.as
+              tail -n +12 src/Conditions/Logging.as >> target-repo/src/Conditions/Logging.tmp.as
               mv target-repo/src/Conditions/Logging.tmp.as target-repo/src/Conditions/Logging.as
             else
               cp src/Conditions/Logging.as target-repo/src/Conditions/Logging.as
