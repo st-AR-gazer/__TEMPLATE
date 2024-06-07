@@ -1,3 +1,5 @@
+// Fun Utils I use from time to time
+
 namespace _Text {
     int LastIndexOf(const string &in str, const string &in value) {
         int lastIndex = -1;
