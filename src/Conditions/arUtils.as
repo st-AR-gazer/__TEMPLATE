@@ -53,14 +53,14 @@ namespace _IO {
         IO::CreateFolder(path);
     }
     
-    void SafeCreateFolder(const string &in path) {
+    void SafeCreateFolder(const string &in path, bool shouldUseRecursion = true) {
         if (!IO::FolderExists(path)) {
-            RecursiveCreateFolder(path);
+            if (shouldUseRecursion) { RecursiveCreateFolder(path); }
         }
     }
 
-    void SafeSaveToFile(const string &in path, const string &in content) {
-        SafeCreateFolder(path);
+    void SafeSaveToFile(const string &in path, const string &in content, bool shouldUseRecursion = true) {
+        SafeCreateFolder(path, shouldUseRecursion);
 
         IO::File file;
         file.Open(path, IO::FileMode::Write);
