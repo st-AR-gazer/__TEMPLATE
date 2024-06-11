@@ -82,6 +82,21 @@ namespace _IO {
         return content;
     }
 
+    string ReadFileInChunks(const string &in path, int chunkSize, uint64 waitTimeMs = 0) {
+        IO::File file(path, IO::FileMode::Read);
+        string content;
+        string chunk;
+        while (!file.EOF()) {
+            chunk = file.Read(chunkSize);
+            content += chunk;
+            if (waitTimeMs > 0) {
+                sleep(waitTimeMs);
+            }
+        }
+        file.Close();
+        return content;
+    }
+
     string GetFileName(const string &in path) {
         int index = _Text::LastIndexOf(path, "/");
         if (index == -1) {
