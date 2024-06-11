@@ -70,6 +70,10 @@ namespace _IO {
     }
     
     string ReadFileToEnd(const string &in path) {
+        if (!IO::FileExists(path)) {
+            print("File does not exist: " + path + " | LogLevel::Error | ReadFileToEnd");
+            return "";
+        }
         IO::File file(path, IO::FileMode::Read);
         string content = file.ReadToEnd();
         file.Close();
@@ -77,23 +81,12 @@ namespace _IO {
     }
 
     string ReadSourceFileToEnd(const string &in path) {
+        if (!IO::FileExists(path)) {
+            print("File does not exist: " + path + " | LogLevel::Error | ReadSourceFileToEnd");
+            return "";
+        }
         IO::FileSource f(path);
         string content = f.ReadToEnd();
-        return content;
-    }
-
-    string ReadFileInChunks(const string &in path, int chunkSize, uint64 waitTimeMs = 0) {
-        IO::File file(path, IO::FileMode::Read);
-        string content;
-        string chunk;
-        while (!file.EOF()) {
-            chunk = file.Read(chunkSize);
-            content += chunk;
-            if (waitTimeMs > 0) {
-                sleep(waitTimeMs);
-            }
-        }
-        file.Close();
         return content;
     }
 
