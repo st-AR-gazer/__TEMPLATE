@@ -1,15 +1,6 @@
 // Fun Utils I use from time to time
 
 namespace _Text {
-    // int NthIndexOf(const string &in str, const string &in value, int n) {
-    //     int index = -1;
-    //     for (int i = 0; i < n; ++i) {
-    //         index = str.IndexOf(value, index + 1);
-    //         if (index == -1) break;
-    //     }
-    //     return index;
-    // }
-
     int LastIndexOf(const string &in str, const string &in value) {
         int lastIndex = -1;
         int index = str.IndexOf(value);
