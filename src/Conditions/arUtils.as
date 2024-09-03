@@ -258,6 +258,7 @@ namespace _Net {
             }
             string url = parts[0];
             string destination = parts[1];
+            destination = Path::GetDirectoryName(destination);
 
             Net::HttpRequest@ request = Net::HttpRequest();
             request.Url = url;
@@ -269,12 +270,34 @@ namespace _Net {
             }
            
             if (request.ResponseCode() == 200) {
-                string content = request.Body;
-                NotifyInfo("File downloaded successfully, returning the content");
+                string content_disposition = Json::Write(request.ResponseHeaders().ToJson().Get("content-disposition"));
 
-                _IO::File::WriteFile(destination, content);
+                string file_name = "";
+                if (content_disposition != "") {
+                    int index = content_disposition.IndexOf("filename=");
+                    if (index != -1) {
+                        file_name = content_disposition.SubStr(index + 9);
+                        file_name = file_name.Trim();
+                        file_name = file_name.Replace("\"", "");
+                        destination = Path::Join(destination, file_name);
+                    }
+                }
+
+                string tmp_path = Path::Join(IO::FromUserGameFolder(""), file_name);
+
+                request.SaveToFile(tmp_path);
+                _IO::File::CopyFileTo(tmp_path, destination);
+
+                if (!IO::FileExists(tmp_path)) { log("Failed to save file to: " + tmp_path, LogLevel::Error, 270, "CoroDownloadFileToDestination"); return; }
+                if (!IO::FileExists(destination)) { log("Failed to move file to: " + destination, LogLevel::Error, 271, "CoroDownloadFileToDestination"); return; }
+
+                IO::Delete(tmp_path);
+
+                if (!IO::FileExists(tmp_path) && IO::FileExists(destination)) {
+                    log("File downloaded successfully, saving " + file_name + " to: " + destination, LogLevel::Info, 270, "CoroDownloadFileToDestination");
+                } 
             } else {
-                NotifyWarn("Failed to download file. Response code: " + request.ResponseCode());
+                log("Failed to download file. Response code: " + request.ResponseCode());
             }
         }
     }
