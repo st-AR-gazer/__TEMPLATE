@@ -204,7 +204,7 @@ namespace _Game {
         CTrackMania@ app = cast<CTrackMania>(GetApp());
         if (app is null) return false;
 
-        CGameCtnEditor@ e = cast<CGameCtnEditor>(app.Editor);
+        CSmArenaClient@ e = cast<CSmArenaClient>(app.Editor);
         if (e !is null) return true;
         return false;
     }
